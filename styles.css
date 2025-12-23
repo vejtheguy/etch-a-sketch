@@ -1,0 +1,26 @@
+root {
+  --box-size: 20;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 900px;
+  min-height: 100vh;
+  margin: 0 auto;
+  border: 1px solid red;
+}
+
+.box {
+  flex: 0 0 calc(100% / var(--box-size));
+  aspect-ratio: 1/1;
+  background-color: #b5f7ea;
+  border: 1px solid blue;
+}
