@@ -17,7 +17,7 @@ root {
   margin: 0 auto;
   border: 2px solid black;
   box-shadow: rgba(0, 0, 0, 0.6) 4px 4px 6px 0;
-  cursor: url(/imgs/customCursor.svg) 8 8, auto;
+  cursor: url(imgs/customCursor.svg) 8 8, auto;
 }
 
 .box {
