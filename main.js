@@ -5,7 +5,11 @@ const resizeBtn = document.getElementById("resizeBtn");
 const gridSizeNum = document.getElementById("gridSizeNum");
 const clearBtn = document.getElementById("clearBtn");
 const toggleGrid = document.getElementById("toggleGrid");
+const colorPicker = document.getElementById("colorPicker");
+const colorMode = document.querySelectorAll("input[name='mode']");
 const defaultSize = getGridSize.value;
+let selectedColor = colorPicker.value;
+let mode = "";
 
 const randomNum = () => {
   return Math.floor(Math.random() * 256);
@@ -13,6 +17,16 @@ const randomNum = () => {
 
 clearBtn.addEventListener("click", () => {
   setGrid(getGridSize.value);
+});
+
+colorPicker.addEventListener("input", (e) => {
+  selectedColor = e.target.value;
+});
+
+colorMode.forEach((radio) => {
+  radio.addEventListener("change", (e) => {
+    mode = e.target.id;
+  });
 });
 
 toggleGrid.addEventListener("change", (e) => {
@@ -33,6 +47,16 @@ getGridSize.addEventListener("change", (e) => {
   setGrid(size);
 });
 
+const hoverColorMode = () => {
+  if (mode === "rainbowMode") {
+    return `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
+  } else if (mode === "eraseMode") {
+    return "";
+  } else {
+    return `${selectedColor}`;
+  }
+};
+
 const setGrid = (columns) => {
   container.textContent = "";
   container.style.setProperty("--box-size", `${columns}`);
@@ -41,7 +65,7 @@ const setGrid = (columns) => {
     newBox.classList.add("box");
     container.appendChild(newBox);
     newBox.addEventListener("mouseover", (hover) => {
-      hover.target.style.backgroundColor = `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
+      hover.target.style.backgroundColor = hoverColorMode();
     });
   }
 };
