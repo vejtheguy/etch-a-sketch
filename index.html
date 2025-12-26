@@ -12,12 +12,24 @@
 <body>
     <div>
         <label for="gridSize">Grid Size:</label>
-        <input type="range" id="gridSize" min="1" max="100" value="24">
+        <input type="range" id="gridSize" min="1" max="100" value="32">
         <span id="gridSizeNum"></span>
-        <button id="resizeBtn">Resize</button>
+    </div>
+    <div>
+        <fieldset>
+            <legend>Design Options:</legend>
+            <label>
+                <input type="color" name="color" id="colorPicker" value="#012BFF">
+                Color
+            </label>
+            <label for="toggleGrid">
+                <input type="checkbox" id="toggleGrid">
+                Show Grid Lines
+            </label>
+            <button id="clearBtn">Clear</button>
+        </fieldset>
     </div>
     <div id="container">
-
     </div>
 
 </body>
