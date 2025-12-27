@@ -5,10 +5,12 @@ const resizeBtn = document.getElementById("resizeBtn");
 const gridSizeNum = document.getElementById("gridSizeNum");
 const clearBtn = document.getElementById("clearBtn");
 const toggleGrid = document.getElementById("toggleGrid");
+const opacityBtn = document.getElementById("opacityMode");
 const colorPicker = document.getElementById("colorPicker");
 const colorMode = document.querySelectorAll("input[name='mode']");
 const defaultSize = getGridSize.value;
 let selectedColor = colorPicker.value;
+let opacityMode = false;
 let mode = "";
 
 const randomNum = () => {
@@ -27,6 +29,10 @@ colorMode.forEach((radio) => {
   radio.addEventListener("change", (e) => {
     mode = e.target.id;
   });
+});
+
+opacityBtn.addEventListener("change", (e) => {
+  opacityMode = e.target.checked;
 });
 
 toggleGrid.addEventListener("change", (e) => {
@@ -50,11 +56,15 @@ getGridSize.addEventListener("change", (e) => {
 const hoverColorMode = () => {
   if (mode === "rainbowMode") {
     return `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
-  } else if (mode === "eraseMode") {
-    return "";
   } else {
     return `${selectedColor}`;
   }
+};
+
+const increaseOpacity = (box) => {
+  let currentOpacity = parseFloat(box.style.opacity) || 0;
+  currentOpacity = Math.min(currentOpacity + 0.1, 1);
+  box.style.opacity = currentOpacity;
 };
 
 const setGrid = (columns) => {
@@ -65,7 +75,17 @@ const setGrid = (columns) => {
     newBox.classList.add("box");
     container.appendChild(newBox);
     newBox.addEventListener("mouseover", (hover) => {
+      if (mode === "eraseMode") {
+        hover.target.style.backgroundColor = "";
+        hover.target.style.opacity = "";
+        return;
+      }
       hover.target.style.backgroundColor = hoverColorMode();
+      if (opacityMode) {
+        increaseOpacity(hover.target);
+      } else {
+        hover.target.style.opacity = 1;
+      }
     });
   }
 };
